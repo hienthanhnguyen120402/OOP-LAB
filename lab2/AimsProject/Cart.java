@@ -1,0 +1,66 @@
+package oop2;
+
+public class Cart {
+	public static final int max_numbers_ordered = 30 ; 
+	private DigitalVideoDisc itemOrdered[] = new DigitalVideoDisc[max_numbers_ordered];
+	private int qtyOrdered = 0 ;
+	
+	public void addDigitalVideoDisc(DigitalVideoDisc disc) {
+		if (this.qtyOrdered == max_numbers_ordered) {
+			System.out.println("The cart is full");
+		}
+		else if (this.qtyOrdered == (max_numbers_ordered - 1) ) {
+			System.out.println("The cart is almost full");
+		}
+		else {
+			this.itemOrdered[qtyOrdered] = disc; 
+			qtyOrdered += 1 ; 
+			System.out.println("The disc have been added");
+			System.out.println("Current disc: "+ qtyOrdered);
+		}
+	}
+
+	public int getQtyOrdered() {
+		return qtyOrdered;
+	}
+
+	public void setQtyOrdered(int qtyOrdered) {
+		this.qtyOrdered = qtyOrdered;
+	}
+	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
+		int check = 0  ; 
+		
+		if (this.qtyOrdered == 0 ) {
+			System.out.println("There is no disc inside cart");
+		}
+		else {
+			for (int i = 0 ; i < qtyOrdered ; ++i) {
+				if (this.itemOrdered[i] == disc) {
+					for (int j = i ; j < qtyOrdered - 1 ; j ++) {
+						itemOrdered[j] = itemOrdered[j+1]; 
+					}
+				}
+				qtyOrdered -- ; 
+				System.out.println("The disc has been removed");
+				System.out.println("Total disc: " + this.qtyOrdered);
+				check = 1;
+				break;
+			}
+		}
+		if (check == 0 ) {
+			System.out.println("No disc inside");
+		}
+	}
+	public float totalCost() {
+		float total = 0.0f ; 
+		for (int i = 0 ; i < qtyOrdered ; i ++) {
+			total += itemOrdered[i].getCost();		
+		}
+		return total ;
+	}
+	public void show_cart() {
+		for (int i = 0 ; i < qtyOrdered ; i ++) {
+			itemOrdered[i].show();		
+		}
+	}
+}
